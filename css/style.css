@@ -1,0 +1,51 @@
+:root {
+    --cor-vue: #3FB27F;
+    --cor-cinza-label: #A6A9B7;
+    --cor-botao-editar: #3498DB;
+    --cor-botao-excluir: #E74C3C;
+    --cor-branca: #fff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.titulo {
+    margin-bottom: 20px;
+    color: var(--cor-vue);
+}
+
+.btn-criar-contato {
+    background-color: var(--cor-vue);
+    color: var(--cor-branca);
+}
+
+.btn-criar-contato:hover {
+    color: var(--cor-branca);
+}
+
+.btn-pesquisar {
+    background-color: var(--cor-vue);
+}
+
+.img-pesquisar {
+    width: 20px;
+}
+
+.btn-editar {
+    background-color: var(--cor-botao-editar);
+    color: var(--cor-branca);
+    margin-right: 5px;
+}
+    
+.btn-excluir {
+    background-color: var(--cor-botao-excluir);
+    color: var(--cor-branca);
+}
+
+.btn-editar:hover,
+.btn-excluir:hover {
+    color:white;
+}
