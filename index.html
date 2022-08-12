@@ -118,94 +118,89 @@
                     }
                 },
 
-                // 4) Coletar dados logo após o componente ser criado
+                // coletar dados logo após o componente ser criado
                 created(){
-                    // Se tiver algum contato no storage... 
+                    // se tiver algum contato no storage 
                     if(localStorage.hasOwnProperty("contactsApp")){                    
-                        //Alimenta o atributo contacts do data
+                        // alimenta o atributo contacts do data
                         this.ListaContatos = JSON.parse(localStorage.getItem("contactsApp"));              
                     }
                 },
 
                 methods:{
-                    // Recebe como parâmetro o objeto contact
+                    // recebe como parâmetro o objeto contact
                     salvarContato(ObjetoContato){
-                        // Variável que guarda todos os contatos criados em uma array
+                        // variável que guarda todos os contatos criados em uma array
                         let ContatosArray = new Array()
-                        // Criar um ID para o novo registro
+                        // criar um ID para o novo registro
                         ObjetoContato.id = new Date().getTime();
-                        // 1) Se já existir um contato registrado no local storage... ( + Checa se existe algum item no local storage )
+                        // 1) se já existir um contato registrado no local storage
                         if (localStorage.hasOwnProperty("contactsApp")) {
-                            // Transforma o novo registro em JSON e guarda na Array contacts. O parse transforma o JSON em objeto no javascript
+                            // transforma o novo registro em JSON e guarda na Array contacts | o parse transforma o JSON em objeto no javascript
                             ContatosArray = JSON.parse(localStorage.getItem("contactsApp"));       
-                            // Adiciona o último registro no array
+                            // adiciona o último registro no array
                             ContatosArray.push(ObjetoContato);
-                        // 2) Se não existir nenhum contato registrado, criar um novo
+                        // 2) se não existir nenhum contato registrado, criar um novo
                         } else{
-                            // Dentro do local storage teremos uma array de objetos (contatos que estão sendo salvos)
+                            // dentro do local storage teremos uma array de objetos
                             ContatosArray = [ObjetoContato];
                         }                                     
-                        // Assim que um valor novo é registrado, cria um card inteiro só pra ele
+                        // assim que um valor novo é registrado, cria um card inteiro só pra ele
                         this.ListaContatos = ContatosArray;
-                        // Transforma os dados em json
+                        // transforma os dados em json
                         localStorage.setItem("contactsApp", JSON.stringify(ContatosArray));
-                        // Limpa o formulário
+                        // limpa o formulário
                         location.reload();
                     },
-                    // Remover o contato da lista
+                    // remover o contato da lista
                     removerContato(ContatoId){
-                        // Variável que guarda todos os contatos criados em uma array
+                        // variável que guarda todos os contatos criados em um array
                         let ContatosArray = new Array();
-                        // 1) Se já existir contatos registrados no local storage... ( + Checa se existe algum item no local storage )
+                        // 1) se já existir contatos registrados no local storage
                         if (localStorage.hasOwnProperty("contactsApp")) {
-                            // Transforma o novo registro em JSON e guarda na Array contacts. O parse transforma o JSON em objeto no javascript
+                            // transforma o novo registro em JSON e guarda na Array contacts | o parse transforma o JSON em objeto no javascript
                             ContatosArray = JSON.parse(localStorage.getItem("contactsApp"));
-                            // Criar uma array com resultados filtrados
+                            // criar uma array com resultados filtrados
                             ContatosArray = ContatosArray.filter((ObjetoContato) => {
-                                // Retorna todos os contatos, menos aquele que foi deletado
+                                // retorna todos os contatos, menos aquele que foi deletado
                                 return ObjetoContato.id != ContatoId;
                             });
-                            // Atualizar lista automaticamente depois de remover contato
+                            // atualizar lista automaticamente depois de remover contato
                             this.ListaContatos = ContatosArray;
-                            // Atualiza lista e Transforma os dados em json
+                            // atualiza lista e Transforma os dados em json
                             localStorage.setItem("contactsApp", JSON.stringify(ContatosArray));
-                            // 2) Se não tiver nenhum contato registrado...
-                        } else {
-                            // Mostrar mensagem no console
-                            return console.log("Não tem nenhum contato registrado :<");
-                        }
+                        } 
                     },
-                    // Editar Contato
+                    // editar Contato
                     editarContato(ObjetoContato){
-                        // Sobrescrever o objeto contato pelo valor recebido no parâmetro
+                        // sobrescrever o objeto contato pelo valor recebido no parâmetro
                         this.ObjetoContato = ObjetoContato;
-                        // Avisa que está editando o contato
+                        // avisa que está editando o contato
                         this.Editando = true;
                     },
-
-                    // Atualizar contato depois de ter editado
+                    // atualizar contato depois de ter editado
                     atualizarContato(ObjetoContato){
-                        // Variável que guarda todos os contatos criados em uma array
+                        // variável que guarda todos os contatos criados em uma array
                         let ContatosArray = new Array();
-                        // Array com nossos contatos que recebe método map
+                        // array com nossos contatos que recebe método map
                         ContatosArray = this.ListaContatos.map(ContatoMap => {
-                            // Se foi feita uma alteração e seu ID mudou, substituir a linha original pela alterada...
+                            // se foi feita uma alteração e seu ID mudou, substituir a linha original pela alterada
                             if(ContatoMap.id == ObjetoContato.id){
-                                // Contato alterado pelo usuário
+                                // contato alterado pelo usuário
                                 return ObjetoContato;
-                            // Se não foi feita nenhuma alteração...
+                            // se não foi feita nenhuma alteração
                             } else {
-                                // Contato não alterado pelo usuário
+                                // contato não alterado pelo usuário
                                 return ContatoMap;
                             }
                         });
-                        // Atualizar lista automaticamente depois de editar contato
+                        // atualizar lista automaticamente depois de editar contato
                         this.ListaContatos = ContatosArray;
-                        // Avisa que terminou de editar
+                        // avisa que terminou de editar
                         this.Editando = false;
-                        // Transforma os dados em json
+                        // transforma os dados em json
                         localStorage.setItem("contactsApp", JSON.stringify(ContatosArray));
-                        // Limpa o formulário
+                        // limpa o formulário
                         location.reload();
                     },
                     pesquisacep(valor) {
